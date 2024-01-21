@@ -92,9 +92,9 @@ function renderGallery() {
 
 function initGallery() {
   renderGallery();
-  let lightbox = new SimpleLightbox('.gallery a', {
+  const lightbox = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
-    captionData: 'alt',
+    captionsData: 'alt',
   });
 }
 
