@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('feedback-form-state', JSON.stringify(formData));
   });
 
-  window.addEventListener('load', function () {
+  document.addEventListener('load', function () {
     const storedData = localStorage.getItem('feedback-form-state');
 
     if (storedData) {
