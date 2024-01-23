@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.querySelector('.feedback-form');
+  const storageKey = 'feedback-form-state';
 
   form.addEventListener('input', function (event) {
     const formData = {
@@ -7,35 +8,33 @@ document.addEventListener('DOMContentLoaded', function () {
       message: form.elements.message.value.trim(),
     };
 
-    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+    localStorage.setItem(storageKey, JSON.stringify(formData));
   });
 
-  document.addEventListener('load', function () {
-    const storedData = localStorage.getItem('feedback-form-state');
-
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
-      form.elements.email.value = parsedData.email;
-      form.elements.message.value = parsedData.message;
-    }
-  });
+  const storedData = localStorage.getItem(storageKey);
+  if (storedData) {
+    const parsedData = JSON.parse(storedData);
+    form.elements.email.value = parsedData.email;
+    form.elements.message.value = parsedData.message;
+  }
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const email = form.elements.email.value.trim();
-    const message = form.elements.message.value.trim();
+    const emailValue = form.elements.email.value.trim();
+    const messageValue = form.elements.message.value.trim();
 
-    if (email !== '' && message !== '') {
+    if (emailValue && messageValue) {
       console.log({
-        email: email,
-        message: message,
+        email: emailValue,
+        message: messageValue,
       });
 
       localStorage.removeItem('feedback-form-state');
+
       form.reset();
     } else {
-      alert('Please fill in both email and message fields before submitting.');
+      alert('Please fill in both email and message fields before submitting');
     }
   });
 });
